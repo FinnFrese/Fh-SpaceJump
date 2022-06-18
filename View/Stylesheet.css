@@ -1,0 +1,236 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: #d84401;
+    margin: 0;
+}
+
+#container{
+    position: absolute;
+    margin: 5vh 0 5vh 0;
+    background-color: rgb(2, 6, 47);
+    height:90vh;
+    width: 100vw;
+}
+
+#player {
+  position: absolute;
+}
+
+#player2 {
+    position: absolute;
+}
+
+.object {
+    position: absolute;
+    overflow: hidden;
+    direction: rtl;
+}
+
+.star {
+    position: absolute;
+}
+
+.object img {
+    position: absolute;
+}
+
+#menu {
+    width: 60%;
+    border-radius: 5px;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    opacity: 0;
+    animation: fadeIn ease 4s;
+    -webkit-animation: fadeIn ease 4s;
+    -moz-animation: fadeIn ease 4s;
+    -o-animation: fadeIn ease 4s;
+    -ms-animation: fadeIn ease 4s;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+  }
+@keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@-ms-keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+#menu-head{
+    text-align: center;
+    font-family: 'Games', sans-serif, cursive;
+    font-size: xx-large;
+    color: yellow;
+
+}
+
+#message {
+    text-align: center;
+    font-family: 'Games', sans-serif, cursive;
+    font-size: xx-large;
+    color: yellow;
+    font-size: medium;
+}
+#menu button {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 2px solid #e74c3c;
+    border-radius: 0.6em;
+    cursor: pointer;
+    align-self: center;
+    font-size: 1rem;
+    line-height: 1;
+    margin: 1vh 0;
+    padding: 1.2em 0;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Games", sans-serif;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #e74c3c inset, 0 0 0 0 #e74c3c;
+    transition: all 150ms ease-in-out;
+    }
+#menu button:hover {
+    box-shadow: 0 0 10px 0 #e74c3c inset, 0 0 10px 4px #e74c3c;
+    }
+
+@media(min-width: 768px) {
+    #menu {
+    width: 35%;
+    }
+}
+
+#welcome-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    animation: fadeOut ease 4s;
+    -webkit-animation: fadeOut ease 4s;
+    -moz-animation: fadeOut ease 4s;
+    -o-animation: fadeOut ease 4s;
+    -ms-animation: fadeOut ease 4s;
+    animation-fill-mode: forwards;
+    }
+@keyframes fadeOut {
+    0% {
+        opacity:1;
+    }
+    100% {
+        opacity:0;
+    }
+}
+
+@-moz-keyframes fadeOut {
+    0% {
+        opacity:1;
+    }
+    100% {
+        opacity:0;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity:1;
+    }
+    100% {
+        opacity:0;
+    }
+}
+
+@-o-keyframes fadeOut {
+    0% {
+        opacity:1;
+    }
+    100% {
+        opacity:0;
+    }
+}
+
+@-ms-keyframes fadeOut {
+        0% {
+            opacity:1;
+        }
+        100% {
+            opacity:0;
+        }
+}
+
+#welcome-popup div {
+    text-align: center;
+    font-family: 'Games', sans-serif, cursive;
+    font-size: xx-large;
+    color: yellow;
+}
+
+/* @media only screen and (orientation:portrait) {
+    body {
+      height: 100vw;
+      transform: rotate(90deg);
+    }
+  } */
+
+/*   @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+    html {
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      width: 100vh;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+  } */
