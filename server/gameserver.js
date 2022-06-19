@@ -10,11 +10,19 @@ const io = require("socket.io")(http, {
 const { createGameState, gameLoop } = require('./gamest')
 const cors = require("cors");
 const { emit } = require("process");
+const fs = require('fs');
+const path = require('path');
+
 console.log("Server running.");
+
 const state = {};
 const clientRooms = {};
 
 io.on('connection', client => {
+
+  let Object_JSON = createLevelJSON();
+  client.emit('Levels', Object_JSON);
+
   client.on('PlInfo', handleInfo);
   client.on('createGame', handleNewGame);
   client.on('joinGame', joinGame);
@@ -43,6 +51,17 @@ io.on('connection', client => {
       state[roomName].players[client.number-1].yCord = playerinfo["yCord"]
       }catch{}
     }
+  }
+
+  function createLevelJSON() {
+    const jsonsInDir = fs.readdirSync('./Level').filter(file => path.extname(file) === '.json');
+    let json = [];
+    jsonsInDir.forEach(file => {
+      let fileData = fs.readFileSync(path.join('./Level', file));
+      fileData = JSON.parse(fileData);
+      json.push(fileData);
+    });
+    return json;
   }
 
   function handleNewGame() {
@@ -93,14 +112,14 @@ function startGame(roomName) {
     }else{
       emitGameOver(roomName, winner);
       state[roomName]=null;
-      clearInterval(intervallId);
+      clearInterval(intervallId)
     }
   }, 1000 / 60);
 }
 
 function makeid(length) {
   var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
   var charactersLength = characters.length;
   for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));

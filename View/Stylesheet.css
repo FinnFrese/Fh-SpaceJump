@@ -52,57 +52,7 @@ body {
     flex-direction: column;
     align-content: center;
     opacity: 0;
-    animation: fadeIn ease 4s;
-    -webkit-animation: fadeIn ease 4s;
-    -moz-animation: fadeIn ease 4s;
-    -o-animation: fadeIn ease 4s;
-    -ms-animation: fadeIn ease 4s;
-    animation-delay: 3s;
-    animation-fill-mode: forwards;
-  }
-@keyframes fadeIn {
-    0% {
-        opacity:0;
-    }
-    100% {
-        opacity:1;
-    }
-}
-
-@-moz-keyframes fadeIn {
-    0% {
-        opacity:0;
-    }
-    100% {
-        opacity:1;
-    }
-}
-
-@-webkit-keyframes fadeIn {
-    0% {
-        opacity:0;
-    }
-    100% {
-        opacity:1;
-    }
-}
-
-@-o-keyframes fadeIn {
-    0% {
-        opacity:0;
-    }
-    100% {
-        opacity:1;
-    }
-}
-
-@-ms-keyframes fadeIn {
-    0% {
-        opacity:0;
-    }
-    100% {
-        opacity:1;
-    }
+    transition: opacity 2s;
 }
 
 #menu-head{
@@ -156,81 +106,17 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-
-    animation: fadeOut ease 4s;
-    -webkit-animation: fadeOut ease 4s;
-    -moz-animation: fadeOut ease 4s;
-    -o-animation: fadeOut ease 4s;
-    -ms-animation: fadeOut ease 4s;
-    animation-fill-mode: forwards;
-    }
-@keyframes fadeOut {
-    0% {
-        opacity:1;
-    }
-    100% {
-        opacity:0;
-    }
-}
-
-@-moz-keyframes fadeOut {
-    0% {
-        opacity:1;
-    }
-    100% {
-        opacity:0;
-    }
-}
-
-@-webkit-keyframes fadeOut {
-    0% {
-        opacity:1;
-    }
-    100% {
-        opacity:0;
-    }
-}
-
-@-o-keyframes fadeOut {
-    0% {
-        opacity:1;
-    }
-    100% {
-        opacity:0;
-    }
-}
-
-@-ms-keyframes fadeOut {
-        0% {
-            opacity:1;
-        }
-        100% {
-            opacity:0;
-        }
-}
-
-#welcome-popup div {
     text-align: center;
     font-family: 'Games', sans-serif, cursive;
     font-size: xx-large;
     color: yellow;
+    opacity: 1;
+    transition: opacity 2s;
 }
 
-/* @media only screen and (orientation:portrait) {
-    body {
-      height: 100vw;
-      transform: rotate(90deg);
-    }
-  } */
-
-/*   @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
-    html {
-      transform: rotate(-90deg);
-      transform-origin: left top;
-      width: 100vh;
-      overflow-x: hidden;
-      position: absolute;
-      top: 100%;
-      left: 0;
-    }
-  } */
+.opacity-0 {
+    opacity: 0 !important;
+}
+.opacity-1{
+    opacity: 1 !important;
+}

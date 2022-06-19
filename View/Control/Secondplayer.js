@@ -12,8 +12,8 @@ let playerWidth
 let ObjectArray = null;
 
 function createp2() {
-    playerHeight = Math.round(contHeight / 8);
-    playerWidth = Math.round(contWidth / 40);
+    playerHeight = Math.round(contHeight / 10);
+    playerWidth = Math.round(contWidth / 50);
 
     //player created in the center of screen
     const player2_div = document.getElementById("player2");
@@ -37,8 +37,13 @@ function player2update(json, player) {
     //console.log("Ende");
     player.xCoor = t['players'][plnmbr]['xCord']*contWidth/100;
     player.yCoor =t['players'][plnmbr]['yCord'];
-    player.pHeight = t['players'][plnmbr]['pHeight'];
-    player.pWidth = t['players'][plnmbr]['pWidth'];
+    if(t['players'][plnmbr]['pHeight'] > t['players'][plnmbr]['pWidth']) {
+        player.pHeight = playerHeight;
+        player.pWidth = playerWidth;
+    } else {
+        player.pHeight = playerWidth;
+        player.pWidth = playerHeight;
+    }
     player.renderPlayer();
 }
 function start2Player(msg) {

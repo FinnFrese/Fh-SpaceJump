@@ -10,7 +10,7 @@ return {
         pWidth: 0,
         pHeight: 0,
         lost: false,
-        won: false
+        won: false,
     },
      {
         xCord: 0,

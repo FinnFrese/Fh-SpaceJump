@@ -13,7 +13,7 @@ function lock (orientation) {
 }
 
 // check users device if mobile or tablet
-const deviceType = () => {
+function deviceType() {
     const ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
         return "tablet";
@@ -21,6 +21,6 @@ const deviceType = () => {
     else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
         return "mobile";
     }
-};
+}
 
 export{deviceType, lock}

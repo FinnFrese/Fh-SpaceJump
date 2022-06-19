@@ -7,7 +7,9 @@ const ObjectSize = {
 };
 
 class SomeObject {
+    //mirr... -> to be able to render all objects mirrored in multiplayer
     objectDiv;
+    mirrObjDiv;
     _objHeight;
     _objWidth;
     _finalWidth;
@@ -15,6 +17,9 @@ class SomeObject {
     _yObj;
     _objVel;
     objImage;
+    mirrObjImg;
+    objectExists;
+    mirrObjectExists;
 
     constructor() {
         this.objectExists = false; //to create each Object just once
@@ -106,8 +111,36 @@ class SomeObject {
         }
     }
 
+    renderMirrObject() {
+        if(this.mirrObjectExists) {
+            this.mirrObjDiv.style.height = this._objHeight + 'px';
+            this.mirrObjDiv.style.width = this._objWidth + 'px';
+            this.mirrObjDiv.style.top = (contHeight - (this._yObj + this._objHeight)) + 'px';
+            this.mirrObjDiv.style.left = this._xObj + 'px';
+        }
+        else {
+            this.mirrObjDiv = document.createElement('div');
+            this.mirrObjDiv.style.cssText = `left: ${this._xObj}px; top: ${(contHeight - (this._yObj + this._objHeight))}px; height: ${this._objHeight}px; width: ${this._objWidth}px; background-color: ${this._color};`;
+            window.container.insertAdjacentElement('afterbegin', this.mirrObjDiv)
+            //add image
+            if(this.mirrObjImg) {
+                let elem = document.createElement("img");
+                elem.src = this.mirrObjImg;
+                this.mirrObjDiv.appendChild(elem);
+                elem.style.height = this._objHeight + 'px';
+                elem.style.width = this._finalWidth + 'px';
+            }
+
+            this.objectExists = true;
+            this.mirrObjectExists = true;
+        }
+    }
+
     deleteObject() {
         this.objectDiv.remove();
+        if(this.mirrObjectExists) {
+            this.mirrObjDiv.remove();
+        }
     }
 }
 
@@ -127,14 +160,15 @@ class JumpObject extends SomeObject{
                     break;
                 case 'L':
                     this._objHeight = Math.round(contHeight / 10);
-                    this._finalWidth = Math.round(contWidth / 10);
+                    this._finalWidth = Math.round(contWidth / 5);
                     break;
             }
         }
         //Start position for Object
         this._xObj = contWidth;
         this._yObj = contHeight - this._objHeight;
-        this.objImage = '../View/Krater.png'
+        this.objImage = './Krater.png'
+        this.mirrObjImg = './mirrKrater.png'
         this._objWidth = 0;
         this._objVel = 0;
         this._color = false;
@@ -144,6 +178,11 @@ class JumpObject extends SomeObject{
         super.renderObject();
         this.objectDiv.style.zIndex = "2";
         this.objectDiv.classList.add('object');
+    }
+    renderMirrObject() {
+        super.renderMirrObject();
+        this.mirrObjDiv.style.zIndex = "2";
+        this.mirrObjDiv.classList.add('object');
     }
 }
 
@@ -158,7 +197,7 @@ class Ufo extends SomeObject{
             switch (size) {
                 case 'S':
                     this._objVel = 0;
-                    this._yObj = contHeight - this._objHeight - Math.round(contHeight / 13); //lets object hover
+                    this._yObj = contHeight - this._objHeight - Math.round(contHeight / 12); //lets object hover
                     break;
                 case 'M':
                     this.objVel = contWidth*0.0007;
@@ -173,7 +212,8 @@ class Ufo extends SomeObject{
         }
         //Start position for Object
         this._xObj = contWidth;
-        this.objImage = '../View/Ufo.png'
+        this.objImage = './Ufo.png'
+        this.mirrObjImg = './mirrUfo.png'
         this._objWidth = 0;
         this._color = false;
     }
@@ -181,6 +221,11 @@ class Ufo extends SomeObject{
         super.renderObject();
         this.objectDiv.style.zIndex = "2";
         this.objectDiv.classList.add('object');
+    }
+    renderMirrObject() {
+        super.renderMirrObject();
+        this.mirrObjDiv.style.zIndex = "2";
+        this.mirrObjDiv.classList.add('object');
     }
 }
 
@@ -208,7 +253,7 @@ class SlideObject extends SomeObject {
         //Start position for Object
         this._xObj = contWidth;
         this._yObj = contHeight - this._objHeight - Math.round(contHeight / 14); //lets object hover
-        //this.objImage = '../View/Ufo.png'
+        //this.objImage = './Ufo.png'
         this._objWidth = 0;
         this._objVel = 0;
         this._color = "blue";
@@ -217,6 +262,11 @@ class SlideObject extends SomeObject {
         super.renderObject();
         this.objectDiv.style.zIndex = "2";
         this.objectDiv.classList.add('object');
+    }
+    renderMirrObject() {
+        super.renderMirrObject();
+        this.mirrObjDiv.style.zIndex = "2";
+        this.mirrObjDiv.classList.add('object');
     }
 }
 
@@ -227,7 +277,7 @@ class ExtraSpeed extends SomeObject {
         this._finalWidth = Math.round(contWidth / 35);
         this._xObj = contWidth;
         this._yObj = contHeight - this._objHeight - Math.round(contHeight / 6); //lets object hover
-        //this.objImage = '../View/Ufo.png'
+        //this.objImage = './Ufo.png'
         this._objWidth = 0;
         this._objVel = 0;
         this._color = "yellow";
@@ -236,6 +286,11 @@ class ExtraSpeed extends SomeObject {
         super.renderObject();
         this.objectDiv.style.zIndex = "2";
         this.objectDiv.classList.add('object');
+    }
+    renderMirrObject() {
+        super.renderMirrObject();
+        this.mirrObjDiv.style.zIndex = "2";
+        this.mirrObjDiv.classList.add('object');
     }
     removeObject() {
         this.objectDiv.style.display = "none";
@@ -250,36 +305,40 @@ function createObjectArray(levelObject, levelindex) {
     let level = levelObject[levelindex]
     let ObjectArray = [];
     let distance = 0; //distance to first object
-    let increaseDistance = Math.round(contWidth / 6); //distance between each Object (x-coordinate)
+    let increaseDistance = Math.round(contWidth / 7); //distance between each Object (x-coordinate)
     let j = 0; //objectArrayIndex
-    let l = 0; //levelArrayIndex
 
-
-            level.forEach((object) => {
-                let Obj;
-                switch(object.type) {
-                    case "none":
-                        distance += increaseDistance;
-                        return;
-                    case "jump":
-                        Obj = new JumpObject(object.size);
-                        break;
-                    case "ufo":
-                        Obj = new Ufo(object.size);
-                        break;
-                    case "slide":
-                        Obj = new SlideObject(object.size);
-                        break;
-                    case "speed":
-                        Obj = new ExtraSpeed();
-                        break;
-                }
-                ObjectArray[j] = Obj;
-                Obj.moveX(distance);
-                distance += increaseDistance;
-                j++;
-            })
-return ObjectArray;
+    if(level) {
+        level.forEach((object) => {
+            let Obj;
+            switch (object.type) {
+                case "none":
+                    distance += increaseDistance;
+                    return;
+                case "jump":
+                    Obj = new JumpObject(object.size);
+                    break;
+                case "ufo":
+                    Obj = new Ufo(object.size);
+                    break;
+                case "slide":
+                    Obj = new SlideObject(object.size);
+                    break;
+                case "speed":
+                    Obj = new ExtraSpeed();
+                    break;
+            }
+            ObjectArray[j] = Obj;
+            Obj.moveX(distance);
+            if(!(Obj instanceof Ufo)) {
+                distance += increaseDistance + Obj.finalWidth;
+            }
+            j++;
+        })
+        return ObjectArray;
+    } else {
+        return null;
+    }
 }
 
 class Star extends SomeObject {

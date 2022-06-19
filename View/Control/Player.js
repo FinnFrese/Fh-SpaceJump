@@ -1,4 +1,4 @@
-import {contHeight} from "./main.js";
+import {movement} from "./main.js";
 
 class Player {
 
@@ -13,17 +13,19 @@ class Player {
         this.stopslide = false;
         this.alreadySlides = false;
         this.jumpVel = 0;
-        this.startJumpVel = 0;
+        this.startJumpVel = movement * 0.9;
         this.falldown = false;
-        this.gravity = 0.000045*contHeight;     //TODO muss noch für responsive angepasst werden
+        this.gravity = 0.015*movement;
         this.jumpBoost = 0;
         this.blocked = false; //so player can walk on objects
         this.anotherjump = false;
         this.blowback = 0;
+        this.friction = 0;
         this.push = 0;
         this.win = false;
         this.lose = false;
         this.player_div = player_div;
+        this.collision = false;
     }
     moveX(deviationX) {
         this.xCoor += deviationX;
@@ -38,6 +40,31 @@ class Player {
         this.player_div.style.cssText =`left: ${this.xCoor}px; top: ${this.yCoor}px; height: ${this.pHeight}px; width: ${this.pWidth}px; background-color: ${this.color}`;
     }
 
+    resetPlayer(height,width, contHeight, contWidth){
+        this.xCoor = (contWidth / 2 - width / 2);
+        this.yCoor = (contHeight - height);
+        this.pHeight = height;
+        this.pWidth = width;
+        this.jump = false;
+        this.slide = false;
+        this.stopslide = false;
+        this.alreadySlides = false;
+        this.jumpVel = 0;
+        this.startJumpVel = movement * 0.9;
+        this.falldown = false;
+        this.gravity = 0.015*movement;
+        this.jumpBoost = 0;
+        this.blocked = false; //so player can walk on objects
+        this.anotherjump = false;
+        this.blowback = 0;
+        this.friction = 0;
+        this.push = 0;
+        this.win = false;
+        this.lose = false;
+        this.collision = false;
+        this.renderPlayer();
+    }
+
 }
 
 function setPlayer(playerHeight, playerWidth, contWidth, contHeight, color, player_div) {
@@ -48,4 +75,4 @@ function setPlayer(playerHeight, playerWidth, contWidth, contHeight, color, play
   return player;
 }
 
-export {setPlayer, Player}
+export {Player, setPlayer}

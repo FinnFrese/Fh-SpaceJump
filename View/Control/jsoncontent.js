@@ -1,14 +1,14 @@
 import { socket, container, contHeight, contWidth } from "./main.js"
 
 function gatherForJson(player) {
-    var xCord = player.xCoor/contWidth*100;
-    var yCord = player.yCoor
+    let xCord = player.xCoor/contWidth*100;
+    let yCord = player.yCoor
     let pHeight = player.pHeight;
     let pWidth = player.pWidth;
-    if (yCord > 0) {
-        yCord = contHeight - yCord - contHeight/8;
+    if (player.yCoor < contHeight - player.pHeight) {
+        yCord = contHeight - yCord - player.pHeight;
     } else {
-        yCord = 0
+        yCord = 0; //for more stability
     }
 
     var losing = player.lose

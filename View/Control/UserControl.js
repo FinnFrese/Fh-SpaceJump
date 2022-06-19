@@ -1,15 +1,13 @@
-import {contHeight, contWidth, playerHeight, playerWidth} from "./main.js";
+import {contHeight, contWidth, playerHeight, playerWidth, movement} from "./main.js";
 import {player1} from "./Control.js";
 
 let nowPressed;
 let nowReleased;
 
 function userInput(event) {
-    player1.startJumpVel = 0.0035*contHeight;
     if(event.type === "keydown"){
     switch(event.keyCode){
         case 32:
-            nowPressed = event.timeStamp;
             //set some variables, so loop can react to user input
             if(player1.slide === false && player1.jump === false) {
                 player1.jump = true;
@@ -32,18 +30,9 @@ function userInput(event) {
     }
     }
     else if(event.type === "keyup"){
-        switch(event.keyCode){
-            case 32:
-                nowReleased = event.timeStamp;
-                //for a higher jump when key is pressed longer
-                if((nowReleased - nowPressed) > 30) {
-                    //give jump an extra boost
-                }
-                break;
-            case 17:
+        if(event.keyCode == 17){
             if(player1.jump === false && player1.slide) {
                 player1.stopslide = true;
-                break;
             }
         }
     }
