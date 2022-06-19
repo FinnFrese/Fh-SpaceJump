@@ -11,10 +11,10 @@ function gatherForJson(player) {
         yCord = 0; //for more stability
     }
 
-    var losing = player.lose
+    let losing = player.lose
     let winning = player.win;
 
-    var json = {
+    let json = {
         xCord: xCord,
         yCord: yCord,
         pWidth: pWidth,
@@ -25,9 +25,9 @@ function gatherForJson(player) {
 
     socket.emit('PlInfo', JSON.stringify(json));
 }
-var plnmbr;
+let plnmbr;
 function playernumber(msg){
-    console.log(msg);
+    //console.log(msg);
 plnmbr = msg-1;
 if(plnmbr===1){
     plnmbr=0

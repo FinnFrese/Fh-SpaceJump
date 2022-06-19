@@ -76,7 +76,7 @@ io.on('connection', client => {
   }
 
   function joinGame(gameCode) {
-    var room;
+    let room;
     try{
     room = io.sockets.adapter.rooms.get(gameCode).size;
     }catch{ room=0}
@@ -118,10 +118,10 @@ function startGame(roomName) {
 }
 
 function makeid(length) {
-  var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
+  let result = '';
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+  let charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;

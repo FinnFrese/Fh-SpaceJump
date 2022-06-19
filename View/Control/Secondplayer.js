@@ -30,8 +30,8 @@ function createp2() {
     }
 }
 function player2update(json, player) {
-    var t = JSON.parse(json);
-    console.log(t)
+    let t = JSON.parse(json);
+    //console.log(t)
     //    console.log(t)
     //console.log(t['players'][1])
     //console.log("Ende");
@@ -55,7 +55,7 @@ function start2Player(msg) {
     AnimateGame(ObjectArray, -1, player1,2)
     player2update(msg, player2);
 }
-var ending = false;
+let ending = false;
 function endmulti(winner){
     ObjectArray = null;
     ending = true

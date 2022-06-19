@@ -132,7 +132,6 @@ function createRoom() {
     playernumber = 1;
     socket.emit('createGame')
     socket.on('gameCode', codemessage)
-    //var gameid = cookiearray("id");
     function codemessage(msg){
         message.innerText = 'Warte auf Spieler 2\nRaumcode: '+msg;
         RoomCode=msg;
@@ -184,7 +183,7 @@ function showScore() {
     if(score) {
         score.forEach( (s) => {
             let elem = document.createElement("p");
-            elem.innerText = s.code + " : " + s.winner;
+            elem.innerText = s.code + " : " + s.winner + "\n" + s.userAgent;
             message.appendChild(elem);
         })
     } else {
@@ -279,9 +278,11 @@ function winmulti(winner) {
         winState = "Your enemy won."
     }
     let scoreBoard = JSON.parse(window.localStorage.getItem('scoreBoard'));
+    let userAgent = navigator.userAgent;
     scoreBoard.push({
         code: RoomCode,
-        winner: winState
+        winner: winState,
+        userAgent: userAgent
     })
     window.localStorage.setItem('scoreBoard', JSON.stringify(scoreBoard));
 

@@ -1,14 +1,14 @@
 import {player1} from "./Control.js";
 
 function mobileUserControl() {
-    var touchstartX = 0;
-    var touchstartY = 0;
-    var touchendX = 0;
-    var touchendY = 0;
-    var timer;
-    var touchduration = 500; //length of time we want the user to touch before we do something
+    let touchstartX = 0;
+    let touchstartY = 0;
+    let touchendX = 0;
+    let touchendY = 0;
+    let timer;
+    let touchduration = 500; //length of time we want the user to touch before we do something
 
-    var gesuredZone = document.querySelector("body");
+    let gesuredZone = document.querySelector("body");
 
     gesuredZone.addEventListener('touchstart', function (event) {
 

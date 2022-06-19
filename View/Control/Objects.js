@@ -1,4 +1,4 @@
-import{contWidth, contHeight} from "./main.js";
+import { contWidth, contHeight } from "./main.js";
 //Possible sizes of an Object (jump, slide) (small, medium, large)
 const ObjectSize = {
     S: 'S',
@@ -84,9 +84,9 @@ class SomeObject {
 
 
 
-    renderObject(){
+    renderObject() {
         //if object already exists just render position and size
-        if(this.objectExists) {
+        if (this.objectExists) {
             this.objectDiv.style.height = this._objHeight + 'px';
             this.objectDiv.style.width = this._objWidth + 'px';
             this.objectDiv.style.top = this._yObj + 'px';
@@ -94,17 +94,22 @@ class SomeObject {
         }
         else {
             this.objectDiv = document.createElement('div');
-            this.objectDiv.style.cssText = `left: ${this._xObj}px; top: ${this._yObj}px; height: ${this._objHeight}px; width: ${this._objWidth}px; background-color: ${this._color};`;
+            if (this._color != '') {
+                this.objectDiv.style.cssText = `left: ${this._xObj}px; top: ${this._yObj}px; height: ${this._objHeight}px; width: ${this._objWidth}px; background-color: ${this._color};`;
+            } else {
+                this.objectDiv.style.cssText = `left: ${this._xObj}px; top: ${this._yObj}px; height: ${this._objHeight}px; width: ${this._objWidth}px;`;
+            }
+
             window.container.insertAdjacentElement('afterbegin', this.objectDiv)
             //add image
-            if(this.objImage) {
+            if (this.objImage) {
                 let elem = document.createElement("img");
                 elem.src = this.objImage;
                 this.objectDiv.appendChild(elem);
                 elem.style.height = this._objHeight + 'px';
                 elem.style.width = this._finalWidth + 'px';
-                console.log(this._objWidth)
-                console.log(this.xObj)
+                //console.log(this._objWidth)
+                //console.log(this.xObj)
             }
 
             this.objectExists = true;
@@ -112,7 +117,7 @@ class SomeObject {
     }
 
     renderMirrObject() {
-        if(this.mirrObjectExists) {
+        if (this.mirrObjectExists) {
             this.mirrObjDiv.style.height = this._objHeight + 'px';
             this.mirrObjDiv.style.width = this._objWidth + 'px';
             this.mirrObjDiv.style.top = (contHeight - (this._yObj + this._objHeight)) + 'px';
@@ -120,10 +125,14 @@ class SomeObject {
         }
         else {
             this.mirrObjDiv = document.createElement('div');
-            this.mirrObjDiv.style.cssText = `left: ${this._xObj}px; top: ${(contHeight - (this._yObj + this._objHeight))}px; height: ${this._objHeight}px; width: ${this._objWidth}px; background-color: ${this._color};`;
+            if (this._color != '') {
+                this.mirrObjDiv.style.cssText = `left: ${this._xObj}px; top: ${(contHeight - (this._yObj + this._objHeight))}px; height: ${this._objHeight}px; width: ${this._objWidth}px; background-color: ${this._color};`;
+            } else {
+                this.mirrObjDiv.style.cssText = `left: ${this._xObj}px; top: ${(contHeight - (this._yObj + this._objHeight))}px; height: ${this._objHeight}px; width: ${this._objWidth}px;`;
+            }
             window.container.insertAdjacentElement('afterbegin', this.mirrObjDiv)
             //add image
-            if(this.mirrObjImg) {
+            if (this.mirrObjImg) {
                 let elem = document.createElement("img");
                 elem.src = this.mirrObjImg;
                 this.mirrObjDiv.appendChild(elem);
@@ -138,14 +147,14 @@ class SomeObject {
 
     deleteObject() {
         this.objectDiv.remove();
-        if(this.mirrObjectExists) {
+        if (this.mirrObjectExists) {
             this.mirrObjDiv.remove();
         }
     }
 }
 
 
-class JumpObject extends SomeObject{
+class JumpObject extends SomeObject {
     constructor(size) {
         super();
         if (ObjectSize.hasOwnProperty(size)) { //check if input has right format
@@ -171,7 +180,7 @@ class JumpObject extends SomeObject{
         this.mirrObjImg = './mirrKrater.png'
         this._objWidth = 0;
         this._objVel = 0;
-        this._color = false;
+
     }
 
     renderObject() {
@@ -187,7 +196,7 @@ class JumpObject extends SomeObject{
 }
 
 
-class Ufo extends SomeObject{
+class Ufo extends SomeObject {
 
     constructor(size) {
         super();
@@ -200,12 +209,12 @@ class Ufo extends SomeObject{
                     this._yObj = contHeight - this._objHeight - Math.round(contHeight / 12); //lets object hover
                     break;
                 case 'M':
-                    this.objVel = contWidth*0.0007;
-                    this._yObj = contHeight - this._objHeight - 3*Math.round(contHeight / 13); //lets object hover
+                    this.objVel = contWidth * 0.0007;
+                    this._yObj = contHeight - this._objHeight - 3 * Math.round(contHeight / 13); //lets object hover
                     break;
                 case 'L':
-                    this.objVel = contWidth*0.0007;
-                    this._yObj = contHeight - this._objHeight - 5*Math.round(contHeight / 13); //lets object hover
+                    this.objVel = contWidth * 0.0007;
+                    this._yObj = contHeight - this._objHeight - 5 * Math.round(contHeight / 13); //lets object hover
                     break;
 
             }
@@ -215,7 +224,7 @@ class Ufo extends SomeObject{
         this.objImage = './Ufo.png'
         this.mirrObjImg = './mirrUfo.png'
         this._objWidth = 0;
-        this._color = false;
+
     }
     renderObject() {
         super.renderObject();
@@ -253,10 +262,11 @@ class SlideObject extends SomeObject {
         //Start position for Object
         this._xObj = contWidth;
         this._yObj = contHeight - this._objHeight - Math.round(contHeight / 14); //lets object hover
-        //this.objImage = './Ufo.png'
         this._objWidth = 0;
         this._objVel = 0;
-        this._color = "blue";
+
+        this.objImage = './Komet.png';
+        this.mirrObjImg = './mirrKomet.png';
     }
     renderObject() {
         super.renderObject();
@@ -280,7 +290,9 @@ class ExtraSpeed extends SomeObject {
         //this.objImage = './Ufo.png'
         this._objWidth = 0;
         this._objVel = 0;
-        this._color = "yellow";
+
+        this.objImage = './Stern.png';
+        this.mirrObjImg = './mirrStern.png';
     }
     renderObject() {
         super.renderObject();
@@ -305,10 +317,10 @@ function createObjectArray(levelObject, levelindex) {
     let level = levelObject[levelindex]
     let ObjectArray = [];
     let distance = 0; //distance to first object
-    let increaseDistance = Math.round(contWidth / 7); //distance between each Object (x-coordinate)
+    let increaseDistance = Math.round(contWidth / 5.5); //distance between each Object (x-coordinate)
     let j = 0; //objectArrayIndex
 
-    if(level) {
+    if (level) {
         level.forEach((object) => {
             let Obj;
             switch (object.type) {
@@ -330,7 +342,7 @@ function createObjectArray(levelObject, levelindex) {
             }
             ObjectArray[j] = Obj;
             Obj.moveX(distance);
-            if(!(Obj instanceof Ufo)) {
+            if (!(Obj instanceof Ufo)) {
                 distance += increaseDistance + Obj.finalWidth;
             }
             j++;
@@ -346,8 +358,8 @@ class Star extends SomeObject {
         super();
         this._xObj = Math.random() * contWidth;
         this._yObj = Math.random() * contHeight;
-        this._objWidth = contHeight/500 + Math.random() * ( 1 - contHeight/500 )
-        this._objHeight = contHeight/500 + Math.random() * ( 1 - contHeight/500 )
+        this._objWidth = contHeight / 500 + Math.random() * (1 - contHeight / 500)
+        this._objHeight = contHeight / 500 + Math.random() * (1 - contHeight / 500)
         this._color = '#FFFFFF';
     }
 
@@ -359,7 +371,7 @@ class Star extends SomeObject {
 
 function createStarArray() {
     let stars = [];
-    const STAR_COUNT = ( contWidth + contHeight ) / 8;
+    const STAR_COUNT = (contWidth + contHeight) / 8;
     for (let i = 0; i < STAR_COUNT; i++) {
         let star = new Star();
         stars.push(star)
@@ -369,7 +381,7 @@ function createStarArray() {
 
 function createStars() {
     let stars = createStarArray()
-    for(let i = 0 ; i < stars.length ; i++) {
+    for (let i = 0; i < stars.length; i++) {
         let star = stars[i];
         star.renderObject();
     }
@@ -378,4 +390,4 @@ function createStars() {
 
 
 
-export{JumpObject, Star, createStars, createObjectArray,SlideObject,Ufo,ExtraSpeed}
+export { JumpObject, Star, createStars, createObjectArray, SlideObject, Ufo, ExtraSpeed }

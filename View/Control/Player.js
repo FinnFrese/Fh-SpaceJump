@@ -1,4 +1,4 @@
-import {movement} from "./main.js";
+import {contHeight, movement} from "./main.js";
 
 class Player {
 
@@ -13,9 +13,9 @@ class Player {
         this.stopslide = false;
         this.alreadySlides = false;
         this.jumpVel = 0;
-        this.startJumpVel = movement * 0.9;
+        this.startJumpVel = contHeight * 0.005;
         this.falldown = false;
-        this.gravity = 0.015*movement;
+        this.gravity = contHeight * 0.0001;
         this.jumpBoost = 0;
         this.blocked = false; //so player can walk on objects
         this.anotherjump = false;
@@ -50,9 +50,9 @@ class Player {
         this.stopslide = false;
         this.alreadySlides = false;
         this.jumpVel = 0;
-        this.startJumpVel = movement * 0.9;
+        this.startJumpVel = contHeight * 0.005;
         this.falldown = false;
-        this.gravity = 0.015*movement;
+        this.gravity = contHeight * 0.0001;
         this.jumpBoost = 0;
         this.blocked = false; //so player can walk on objects
         this.anotherjump = false;

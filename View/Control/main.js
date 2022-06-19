@@ -32,7 +32,7 @@ let request = new XMLHttpRequest();
 request.open("GET", "./MultiLevel.json", false);
 request.send(null)
 let multi_level_JSON = JSON.parse(request.responseText);
-console.log(multi_level_JSON)
+//console.log(multi_level_JSON)
 
 let starsArray = createStars();
 
