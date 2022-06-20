@@ -211,9 +211,10 @@ function win(level) {
 //update localstorage maxlevel
 
     if(level +1 < level_Object_JSON.length && parseInt(window.localStorage.getItem('maxLevel')) < (level +1)) {
-        window.localStorage.setItem('maxLevel', (level + 1));
+        window.localStorage.setItem('maxLevel', (level + 1).toString());
     }
     maxLevel = window.localStorage.getItem('maxLevel');
+    levelToPlay = maxLevel;
     singleButton.style.display = "none";
     playButton.style.display = "block";
     backButton.style.display = "block";
@@ -237,6 +238,7 @@ function win(level) {
 
 
 function lose() {
+    levelToPlay = maxLevel;
     singleButton.style.display = "none";
     playButton.style.display = "block";
     backButton.style.display = "block";
